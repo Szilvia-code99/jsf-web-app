@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
   
 @ManagedBean  
 @ReferencedBean  
-public class User {  
+public class Login {  
 private static final long serialVersionUID = 1094801825228386363L;
 	
 	private String pwd;
@@ -61,21 +61,7 @@ private static final long serialVersionUID = 1094801825228386363L;
 		}
 	}
 
-        public String registerUser() {
-            HttpSession session = SessionUtils.getSession();
-			session.setAttribute("username", user);
-		boolean valid = UserDAO.register(user, pwd);
-		if (valid) {
-			return "admin";
-		} else {
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage(FacesMessage.SEVERITY_WARN,
-							"Username already exists",
-							"Please enter correct username and Password"));
-			return "register";
-		}
-	}
+    
 	//logout event, invalidate session
 	public String logout() {
 		HttpSession session = SessionUtils.getSession();
