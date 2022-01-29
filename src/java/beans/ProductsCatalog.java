@@ -2,7 +2,7 @@ package beans;
  
 import beans.SessionUtils;
 import dao.ProductDAO;
-import dao.UserDAO;
+import dao.CostumerDAO;
 import java.sql.Connection;  
 import java.sql.DriverManager;  
 import java.sql.PreparedStatement;  
@@ -29,4 +29,9 @@ private static final long serialVersionUID = 1094801825228386363L;
         public List<Product> getProducts() {
                 return products;
         }
+        
+        public String goToCart(){  
+         return "cart";  
+        }
+        
 }

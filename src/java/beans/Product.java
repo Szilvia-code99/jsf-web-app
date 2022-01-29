@@ -1,7 +1,7 @@
 package beans;
  
 import beans.SessionUtils;
-import dao.UserDAO;
+import dao.CostumerDAO;
 import java.sql.Connection;  
 import java.sql.DriverManager;  
 import java.sql.PreparedStatement;  

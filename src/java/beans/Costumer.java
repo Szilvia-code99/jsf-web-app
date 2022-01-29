@@ -1,7 +1,7 @@
 package beans;
  
 import beans.SessionUtils;
-import dao.UserDAO;
+import dao.CostumerDAO;
 import java.sql.Connection;  
 import java.sql.DriverManager;  
 import java.sql.PreparedStatement;  
@@ -13,11 +13,11 @@ import javax.servlet.http.HttpSession;
   
 @ManagedBean  
 @ReferencedBean  
-public class Login {  
+public class Costumer {  
 private static final long serialVersionUID = 1094801825228386363L;
 	
+        private int id;
 	private String pwd;
-	private String msg;
 	private String user;
 
 	public String getPwd() {
@@ -28,12 +28,12 @@ private static final long serialVersionUID = 1094801825228386363L;
 		this.pwd = pwd;
 	}
 
-	public String getMsg() {
-		return msg;
+	public int getId() {
+		return id;
 	}
 
-	public void setMsg(String msg) {
-		this.msg = msg;
+	public void setId(int id) {
+		this.id=id;
 	}
 
 	public String getUser() {
@@ -46,11 +46,11 @@ private static final long serialVersionUID = 1094801825228386363L;
 
 	//validate login
 	public String validateUsernamePassword() {
-		boolean valid = UserDAO.validate(user, pwd);
+		boolean valid = CostumerDAO.validate(user, pwd);
 		if (valid) {
 			HttpSession session = SessionUtils.getSession();
 			session.setAttribute("username", user);
-			return "admin";
+			return "products";
 		} else {
 			FacesContext.getCurrentInstance().addMessage(
 					null,
@@ -71,6 +71,33 @@ private static final long serialVersionUID = 1094801825228386363L;
         
         public String goToRegister(){  
          return "register.xhtml";  
-}   
+        }
+        
+         public String goToCart(){  
+         return "cart";  
+        }
+        
+         public String registerUser() {
+            HttpSession session = SessionUtils.getSession();
+			session.setAttribute("username", user);
+		boolean valid = CostumerDAO.register( user,  pwd);
+		if (valid) {
+                    FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_WARN,
+							"Succesfull",
+							"Yey"));
+                    return "login";
+			
+		} else {
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_WARN,
+							"Username already exists",
+							"Please enter correct username and Password"));
+			
+                        return "register";
+		}
+	}
   
 }

@@ -6,7 +6,7 @@ xmlns:h="http://xmlns.jcp.org/jsf/html">
        <h:head> 
 <title>Register</title>  
 </h:head>  
-    <h:outputStylesheet library="css" name="style.css"></h:outputStylesheet>
+    <h:outputStylesheet library="css" name="style2.css"></h:outputStylesheet>
     <h:body class="Loginbody">
 
 <div class="Logincontainer">
@@ -19,13 +19,13 @@ xmlns:h="http://xmlns.jcp.org/jsf/html">
       <h:form>
         <div class="Loginform-group">
           <h:outputLabel for="username" value="User Name "/>  
-          <h:inputText id="username" value="#{login.user}"/>  
+          <h:inputText id="username" value="#{costumer.user}"/>  
           <h:message for="username"></h:message>
 		<br></br><br></br> 
         </div>
         <div class="Loginform-group">
          <h:outputLabel for="pwd" value="Password "/>  
-         <h:inputText id="password" value="#{login.pwd}"/>  
+         <h:inputText id="password" value="#{costumer.pwd}"/>  
          <h:message for="password"></h:message>
 		<br></br><br></br>
         </div>
@@ -33,10 +33,10 @@ xmlns:h="http://xmlns.jcp.org/jsf/html">
           <input type="checkbox" name="checkbox" class="form-check-input" id="checkbox"/>
           <label class="form-check-label" for="checkbox">Remember Me</label>
         </div>
-<h:commandButton action="#{login.validateUsernamePassword}"
+<h:commandButton action="#{costumer.validateUsernamePassword}"
 			value="Login"></h:commandButton>
                         
- <h:commandLink  value="Click here to register" action="#{login.goToRegister}"></h:commandLink>
+ <h:commandLink  value="Click here to register" action="#{costumer.goToRegister}"></h:commandLink>
       </h:form>
     </div>
   </div>

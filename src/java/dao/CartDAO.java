@@ -1,6 +1,9 @@
 
 package dao;
 
+import beans.Costumer;
+import beans.Product;
+import beans.SessionUtils;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -10,32 +13,33 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import util.DataConnect;
 
-public class UserDAO {
+public class CartDAO {
 
-	public static boolean validate(String user, String password) {
+	public static boolean addToCart(Costumer costumer,Product product, int quantity) {
 		Connection con = null;
 		PreparedStatement ps = null;
-
+                String costumerId = SessionUtils.getUserId();
+	
+                int result = 0;  
 		try {
-			con = DataConnect.getConnection();
-			ps = con.prepareStatement("Select username, password from costumer where username = ? and password = ?");
-			ps.setString(1, user);
-			ps.setString(2, password);
-
-			ResultSet rs = ps.executeQuery();
-
-			if (rs.next()) {
-				//result found, means valid inputs
-				return true;
-			}
-		} catch (SQLException ex) {
-			System.out.println("Login error -->" + ex.getMessage());
+                    con = DataConnect.getConnection();
+                     PreparedStatement stmt = con.prepareStatement("insert into costumer_product(costumerId,productId,quantity) values(?,?,?);");  
+                     stmt.setInt(1, costumer.getId());  
+                     stmt.setInt(2, product.getProductId());  
+                     stmt.setInt(3, quantity);  
+             
+                    result = stmt.executeUpdate();  
+             
+			
+		 }catch(SQLException ex) {
+			System.out.println("Register error -->" + ex.getMessage());
 			return false;
-                }finally {
-			DataConnect.close(con);
-		}
-		return false;
-	}
+        }
+        if(result == 1){  
+            return true;  
+        }else return false;  
+    }  
+
 
         
         

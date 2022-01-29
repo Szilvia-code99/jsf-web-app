@@ -6,9 +6,10 @@
 	https://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
 
 	<navigation-rule>
+            
 		<from-view-id>/login.xhtml</from-view-id>
 		<navigation-case>
-			<from-outcome>admin</from-outcome>
+			<from-outcome>products</from-outcome>
 			<to-view-id>/products.xhtml</to-view-id>
 		</navigation-case>
                 <from-view-id>/register.xhtml</from-view-id>
@@ -16,6 +17,17 @@
 			<from-outcome>login</from-outcome>
 			<to-view-id>/login.xhtml</to-view-id>
 		</navigation-case>
+                  <from-view-id>/products.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>login</from-outcome>
+			<to-view-id>/login.xhtml</to-view-id>
+		</navigation-case>
+                <from-view-id>/products.xhtml</from-view-id>
+                <navigation-case>
+			<from-outcome>cart</from-outcome>
+			<to-view-id>/cart.xhtml</to-view-id>
+		</navigation-case>
+                
 	</navigation-rule>
 
 </faces-config>
