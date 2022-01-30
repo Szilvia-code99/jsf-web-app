@@ -50,7 +50,7 @@ private static final long serialVersionUID = 1094801825228386363L;
          }
           
          public void delete(int productId) throws IOException {
-              CartDAO.deleteProduct(productId);
+              CartDAO.deleteProductFromCart(productId);
               ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
               ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
          }

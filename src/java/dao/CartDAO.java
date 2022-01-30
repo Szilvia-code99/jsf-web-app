@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import util.DataConnect;
@@ -54,7 +55,32 @@ public class CartDAO {
                       }else return false;  
     }  
         
-        public static void deleteProduct(int productId) {
+       
+        public static boolean emptyCart(List<CostumerProduct> costumer_products) {
+		Connection con = null;
+		PreparedStatement ps = null;
+                int costumerId = SessionUtils.getUserId();
+	
+                int result = 0;  
+		try {
+                       con = DataConnect.getConnection();
+                       ps = con.prepareStatement("delete from costumer_product where costumer_productId = ? ");
+                         for(int i=0;i<costumer_products.size();i++){
+                            
+                              ps.setInt(1, costumer_products.get(i).getCostumer_productId());
+                              result= ps.executeUpdate();
+                     }
+                               
+		 }catch(SQLException ex) {
+			System.out.println("Emptying cart error -->" + ex.getMessage());
+        }
+                  if(result == 1){  
+                    return true; }
+                          else return false; 
+     }
+    
+        
+        public static void deleteProductFromCart(int productId) {
 		Connection con = null;
 		PreparedStatement ps = null;
                 int costumerId = SessionUtils.getUserId();
@@ -94,7 +120,7 @@ public class CartDAO {
                 int costumerId = SessionUtils.getUserId();
                
 		try {
-                         con = DataConnect.getConnection();
+                        con = DataConnect.getConnection();
                         ps = con.prepareStatement("Select costumer_productId, productId, quantity from costumer_product where costumerId = ?");
 			ps.setInt(1, costumerId);
 
@@ -107,7 +133,7 @@ public class CartDAO {
 
                     }
 		} catch (SQLException ex) {
-			System.out.println("Login error -->" + ex.getMessage());
+			System.out.println("Costumer_product error -->" + ex.getMessage());
                 }finally {
 			DataConnect.close(con);
 		}

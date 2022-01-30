@@ -293,12 +293,16 @@ section{
     width: 100%;
     text-align: center;
 }
+#home{
+     margin-top:250px;
+}
 
 .home{
+    margin-top:250px;
     min-height: 100vh;
     display: flex;
     align-items: center;
-    background:url(../images/home-img.png) no-repeat;
+    background:url(D:\UNI 2021-2022\Java\TemaJSFWebApp\homepage\imageshome-img.jpg) no-repeat;
     background-size: cover;
     background-position: center;
 }
@@ -671,6 +675,9 @@ section{
     #menu-btn{
         display: inline-block;
     }
+    .header {
+        margin-bottom: 250px;
+    }
 
     .header .navbar{
         position: absolute;
@@ -683,6 +690,7 @@ section{
     .header .navbar.active{
         right:0;
     }
+
 
     .header .navbar a{
         color:#13131a;

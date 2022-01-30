@@ -6,8 +6,10 @@
 package beans;
 
 import dao.CartDAO;
+import dao.OrderDAO;
 import dao.ProductDAO;
 import java.io.IOException;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ReferencedBean;
@@ -49,6 +51,14 @@ public class CostumerProduct {
 	public void setCartProductId(int cartProductId) {
 		this.costumer_productId = cartProductId;
 	}
+        
+        public int getCostumer_productId() {
+		return costumer_productId;
+	}
+
+	public void setCostumer_productId(int costumer_productId) {
+		this.costumer_productId = costumer_productId;
+	}
 
 	public int getCostumerId() {
 		return costumerId;
@@ -84,6 +94,14 @@ public class CostumerProduct {
         
         public void addToCart(int productId) throws IOException{
             boolean valid = CartDAO.addToCart(productId);
+            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+             ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
+        }
+        
+         public void placeOrder(List<CostumerProduct> costumer_products) throws IOException{
+             if (OrderDAO.placeOrder(costumer_products)){
+                 CartDAO.emptyCart(costumer_products);
+             };
             ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
              ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
         }
