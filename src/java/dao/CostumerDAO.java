@@ -1,4 +1,3 @@
-
 package dao;
 
 import java.sql.Connection;
@@ -18,7 +17,7 @@ public class CostumerDAO {
 
 		try {
 			con = DataConnect.getConnection();
-			ps = con.prepareStatement("Select username, password from costumer where username = ? and password = ?");
+			ps = con.prepareStatement("Select costumerId, username, password from costumer where username = ? and password = ?");
 			ps.setString(1, user);
 			ps.setString(2, password);
 
@@ -35,6 +34,30 @@ public class CostumerDAO {
 			DataConnect.close(con);
 		}
 		return false;
+	}
+        
+        public static int getId(String user, String password) {
+		Connection con = null;
+		PreparedStatement ps = null;
+
+		try {
+			con = DataConnect.getConnection();
+			ps = con.prepareStatement("Select costumerId from costumer where username = ? and password = ?");
+			ps.setString(1, user);
+			ps.setString(2, password);
+
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+				return rs.getInt("costumerId");
+			}
+		} catch (SQLException ex) {
+			System.out.println("Login error -->" + ex.getMessage());
+			return 0;
+                }finally {
+			DataConnect.close(con);
+		}
+		return 0;
 	}
 
         

@@ -22,12 +22,17 @@ public class SessionUtils {
 				.getExternalContext().getSession(false);
 		return session.getAttribute("username").toString();
 	}
+        public static int getUserId() {
+		HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
+				.getExternalContext().getSession(false);
+		return (int) session.getAttribute("id");
+	}
 
-	public static String getUserId() {
+	/*public static String getUserId() {
 		HttpSession session = getSession();
 		if (session != null)
 			return (String) session.getAttribute("costumerid");
 		else
 			return null;
-	}
+	}*/
 }

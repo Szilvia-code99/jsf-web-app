@@ -48,8 +48,10 @@ private static final long serialVersionUID = 1094801825228386363L;
 	public String validateUsernamePassword() {
 		boolean valid = CostumerDAO.validate(user, pwd);
 		if (valid) {
+                  id =  CostumerDAO.getId(user,pwd);
 			HttpSession session = SessionUtils.getSession();
 			session.setAttribute("username", user);
+			session.setAttribute("id",id);
 			return "products";
 		} else {
 			FacesContext.getCurrentInstance().addMessage(

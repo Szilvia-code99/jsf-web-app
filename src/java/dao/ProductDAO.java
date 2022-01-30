@@ -20,8 +20,6 @@ import util.DataConnect;
  */
 public class ProductDAO {
     
-    
-    
 	public static ArrayList getAllProducts() {
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -44,5 +42,29 @@ public class ProductDAO {
 			DataConnect.close(con);
 		}
 		return products;
+	}
+        
+        public static Product getProductById(int id) {
+		Connection con = null;
+		PreparedStatement ps = null;
+               
+		try {
+			con = DataConnect.getConnection();
+			ps = con.prepareStatement("Select name,price,image,description from product where productId = ? ");
+                        ps.setInt(1,id);
+			ResultSet rs = ps.executeQuery();
+                        
+                       while (rs.next()) {
+                       Product product=new Product(id,rs.getString("name"),rs.getFloat("price"),rs.getString("image"),rs.getString("description"));
+                        
+                       return product;
+
+                    }
+		} catch (SQLException ex) {
+			System.out.println("Login error -->" + ex.getMessage());
+                }finally {
+			DataConnect.close(con);
+		}
+		return null;
 	}
 }

@@ -9,20 +9,130 @@
   <h:outputStylesheet library="css" name="style2.css"></h:outputStylesheet>
 </h:head>  
 <h:body class=".body1">  
+    
+       
+<header class="header">
 
+    <a href="#" class="logo">
+        <img src="D:\UNI 2021-2022\Java\TemaJSFWebApp\homepage\images\logoo.jpg" alt="imagine" style="width:100%"></img>
+    </a>
+
+    <nav class="navbar">
+        <a href="#home">home</a>
+        <a href="#about">about</a>
+        <a href="#products">products</a>
+        <a href="#contact">contact</a>
+    </nav>
+
+    <div class="icons">
+        <div class="fas fa-shopping-cart" id="cart-btn"></div>
+        <div class="fas fa-bars" id="menu-btn"></div>
+    </div>
+
+</header>
+    <!-- header section ends -->
+
+<!-- home section starts  -->
+
+<section class="home" id="home">
+
+    <div class="content">
+        <h3>The coolest clothing store</h3>
+        <p>We hope here to give you an inspiration spot for your outfit.</p>
+        <a href="#" class="btn">get yours now</a>
+    </div>
+
+</section>
+
+<!-- home section ends -->
+
+
+<!-- about section starts  -->
+
+<section class="about" id="about">
+
+    <h1 class="heading"> <span>about</span> us </h1>
+
+    <div class="row">
+        <div class="image">
+            <img src="D:\UNI 2021-2022\Java\TemaJSFWebApp\homepage\images\about-img.png" alt=""/>
+        </div>
+
+
+        <div class="content">
+            <h3>what makes our clothing store special?</h3>
+            <p>We bring to life the freshest clothing for both women and men.</p>
+            <p>We keep alive the passion for beauty.</p>
+            <a href="#" class="btn">learn more</a>
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="products" id="products">
+
+    <h1 class="heading"> our <span>products</span> </h1>
+   
  <ul>
 	<ui:repeat var="product" value="#{productsCatalog.products}">
-            <div class="card">
-                <img src="#{product.image}" alt="Blouse" style="width:100%"></img>
+                    <div class="card">
+                            <img src="#{product.image}" alt="Blouse" style="width:100%"></img>
                             <h1>#{product.name}</h1>
                             <p class="price">$#{product.price}</p>
                             <p>#{product.description}</p>
-                              <h:form id="form">
-                                  <h:commandButton action="#{productsCatalog.goToCart}" value="Add">Add to Cart</h:commandButton></h:form>
-            </div>
-				
-                                
+                            <h:form> <h:commandButton action="#{costumerProduct.addToCart(product.productId)}"
+                                                      value="Add to cart"></h:commandButton></h:form>
+                               <h:form> <h:commandButton action="#{costumerProduct.goToCart()}"
+                                                      value="GO to cart"></h:commandButton></h:form>
+         
+        
+                     </div>   
        </ui:repeat>
   </ul>
+        
+           
+    </section>
+
+
+<!-- contact section starts  -->
+
+<section class="contact" id="contact">
+
+    <h1 class="heading"> <span>contact</span> us </h1>
+
+    <div class="row">
+
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2732.826305165359!2d23.592656715586283!3d46.76832007913802!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47490c26393ae72f%3A0xe35577f14e3ef90b!2sStrada%20Mihail%20Kog%C4%83lniceanu%20nr.%2017-19%2C%20Cluj-Napoca%20400084!5e0!3m2!1sen!2sro!4v1643115669871!5m2!1sen!2sro" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+
+        <form action="">
+            <h3>get in touch</h3>
+            <h3>Follow us:</h3>
+                <div>
+                <a href="https://www.facebook.com/pricop.edy/" class="fa fa-facebook"></a>
+                <a href="https://twitter.com/LomBuqu" class="fa fa-twitter"></a>
+        </div>
+        </form>
+
+    </div>
+    
+</section>
+ <!-- blogs section ends -->
+ 
+ 
+<section class="footer">
+
+    <div class="links">
+        <a href="#">home</a>
+        <a href="#">about</a>
+        <a href="#">products</a>
+        <a href="#">contact</a>
+    </div>
+
+    <div class="credit">created by <span>Kovacs Szilvia and Pricop Eduard</span> | all rights reserved</div>
+
+</section>
+
 </h:body>  
 </html>  

@@ -26,6 +26,7 @@ private static final long serialVersionUID = 1094801825228386363L;
         public Product(){
             
         }
+        
         public Product(int productId,String name,float price,String image,String description){
             this.productId=productId;
             this.name = name;
