@@ -19,7 +19,8 @@ and open the template in the editor.
 	 <h:form prependId="false">
 		<table border="1" cellpadding="2" cellspacing="2">
 			<tr>
-                                <th>Option</th>
+                                <th>Remove</th>
+                                <th>Add</th>
 				<th>Name</th>
                                 <th>CostumerId</th>
 				<th>Price</th>
@@ -30,7 +31,11 @@ and open the template in the editor.
 				<tr>
 					<td align="center">
 						
-                                        <h:commandLink value="X" action="#{cart.delete(costumerProduct.productId)}"></h:commandLink>
+                                        <h:commandLink value="-" action="#{cart.delete(costumerProduct.productId)}"></h:commandLink>
+					</td>
+                                        <td align="center">
+						
+                                        <h:commandLink value="+" action="#{costumerProduct.addToCart(costumerProduct.productId)}"></h:commandLink>
 					</td>
                                         
 					

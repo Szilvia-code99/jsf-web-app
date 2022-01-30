@@ -7,9 +7,13 @@ package beans;
 
 import dao.CartDAO;
 import dao.ProductDAO;
+import java.io.IOException;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ReferencedBean;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  *
@@ -78,8 +82,10 @@ public class CostumerProduct {
 		this.price=price;
 	}
         
-        public void addToCart(int productId){
+        public void addToCart(int productId) throws IOException{
             boolean valid = CartDAO.addToCart(productId);
+            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+             ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
         }
         
         public Product getProductById(){
