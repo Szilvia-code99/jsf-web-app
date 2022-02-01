@@ -6,6 +6,7 @@
 package dao;
 
 import beans.CostumerProduct;
+import beans.OrderProduct;
 import beans.SessionUtils;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -29,20 +30,16 @@ public class OrderDAO {
                 int result = 0;  
 		try {
                          con = DataConnect.getConnection();
-                       /*  PreparedStatement stmt = con.prepareStatement("insert into costumer(username,password) values(?,?);");  
-                         //for(int i=0;i<costumer_products.size();i++){
-                        // System.out.println(costumer_products.get(i).getCostumer_productId());
-                         ps.setString(2, 1);
-                         ps.setInt(1, costumer_products.get(i).getCostumer_productId());
-                     
-                         ps.executeUpdate();*/
+                      
                        
-                        PreparedStatement stmt = con.prepareStatement("insert into shop.order(costumerId,productId,quantity) values(?,?,?);");  
+                        PreparedStatement stmt = con.prepareStatement("insert into shop.order(costumerId,productId,quantity,date) values(?,?,?,?);");  
                         for(int i=0;i<costumer_products.size();i++){
                        
                          stmt.setInt(1, costumer_products.get(i).getCostumerId());
                          stmt.setInt(2, costumer_products.get(i).getProductId());
                          stmt.setInt(3, costumer_products.get(i).getQuantity());
+                         java.sql.Timestamp date = new java.sql.Timestamp(new java.util.Date().getTime());
+                         stmt.setTimestamp(4, date);
                      
                           result =stmt.executeUpdate();
                         }
@@ -58,5 +55,33 @@ public class OrderDAO {
                           if(result == 1){  
                            return true;  
                              }else return false; 
-                        }
+            }
+    
+     public static ArrayList getProductsFromOrdersById() {
+		Connection con = null;
+		PreparedStatement ps = null;
+                ArrayList<OrderProduct> products = new ArrayList<OrderProduct>();
+                int costumerId = SessionUtils.getUserId();
+               
+		try {
+                        con = DataConnect.getConnection();
+                        ps = con.prepareStatement("Select orderId, productId, quantity,date from shop.order where costumerId = ?");
+			ps.setInt(1, costumerId);
+
+			ResultSet rs = ps.executeQuery();
+			
+                        while (rs.next()) {
+                        OrderProduct costumer_product = new OrderProduct(rs.getInt("orderId"),costumerId,rs.getInt("productId"),rs.getInt("quantity"),rs.getTimestamp("date"));
+                        
+                        products.add(costumer_product);
+
+                    }
+		} catch (SQLException ex) {
+			System.out.println("Orders error -->" + ex.getMessage());
+                }finally {
+			DataConnect.close(con);
+		}
+		return products;
+	}
+   
 }

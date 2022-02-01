@@ -9,6 +9,7 @@ import dao.CartDAO;
 import dao.OrderDAO;
 import dao.ProductDAO;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -23,43 +24,37 @@ import javax.servlet.http.HttpServletRequest;
  */
 @ManagedBean  
 @ReferencedBean 
-public class CostumerProduct {
+public class OrderProduct {
         
-        private int costumer_productId;
+        private int orderId;
         private int costumerId;
         private int productId;
         private int quantity;
         private float price;
+        private Date date;
         
-        public CostumerProduct(){
+        public OrderProduct(){
             
         }
         
-        public CostumerProduct(int costumer_productId,int costumerId,int productId, int quantity){
-            this.costumer_productId=costumer_productId;
+        public OrderProduct(int orderId,int costumerId,int productId, int quantity, Date date){
+            this.orderId=orderId;
             this.costumerId= costumerId;
             this.productId=productId;
             this.quantity=quantity;
             this.price =ProductDAO.getProductById(productId).getPrice() * quantity;
+            this.date=date;
         }
 
 
-	public int getCartProductId() {
-		return costumer_productId;
+	public int getOrderId() {
+		return orderId;
 	}
 
-	public void setCartProductId(int cartProductId) {
-		this.costumer_productId = cartProductId;
+	public void setOrderId(int orderId) {
+		this.orderId = orderId;
 	}
         
-        public int getCostumer_productId() {
-		return costumer_productId;
-	}
-
-	public void setCostumer_productId(int costumer_productId) {
-		this.costumer_productId = costumer_productId;
-	}
-
 	public int getCostumerId() {
 		return costumerId;
 	}
@@ -92,19 +87,14 @@ public class CostumerProduct {
 		this.price=price;
 	}
         
-        public void addToCart(int productId) throws IOException{
-            boolean valid = CartDAO.addToCart(productId);
-            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-             ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
-        }
+        public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date=date;
+	}
         
-         public void placeOrder(List<CostumerProduct> costumer_products) throws IOException{
-             if (OrderDAO.placeOrder(costumer_products)){
-                 CartDAO.emptyCart(costumer_products);
-             };
-            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-             ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
-        }
         
         public Product getProductById(){
             return ProductDAO.getProductById(productId);

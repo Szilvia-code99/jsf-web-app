@@ -1,11 +1,14 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"  
+<html  xmlns="http://www.w3.org/1999/xhtml"  
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">  
 <h:head>  
 <title>Products Page</title>  
+ <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
   <h:outputStylesheet library="css" name="style2.css"></h:outputStylesheet>
 </h:head>  
 <h:body class=".body1">  
@@ -13,23 +16,27 @@
        
 <header class="header">
 
-    <a href="#" class="logo">
-        <img src="D:\UNI 2021-2022\Java\TemaJSFWebApp\homepage\images\logoo.jpg" alt="imagine" style="width:100%"></img>
-    </a>
-
     <nav class="navbar">
-        <a href="#home">home</a>
-        <a href="#about">about</a>
-        <a href="#products">products</a>
-        <a href="#contact">contact</a>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#products">Products</a>
+        <a href="#contact">Contact</a>
     </nav>
 
     <div class="icons">
-        <i class="fas fa-band-aid"></i>
-        <div class="fas fa-shopping-cart" id="cart-btn"></div>
-        <div class="fas fa-bars" id="menu-btn"></div>
+        
+            <h:form>
+            <h:commandButton value="Cart" action="#{costumerProduct.goToCart()}" type="submit" />
+            </h:form>
+            <h:form>
+            <h:commandButton value="Orders" action="#{costumerProduct.goToOrders()}" type="submit" />
+            </h:form>
+             <h:form>
+            <h:commandButton value="Log out" action="#{costumer.logout}" type="submit" />
+            </h:form>
     </div>
 
+  
 </header>
     <!-- header section ends -->
 
@@ -40,7 +47,7 @@
     <div class="content">
         <h3>The coolest clothing store</h3>
         <p>We hope here to give you an inspiration spot for your outfit.</p>
-        <a href="#" class="btn">get yours now</a>
+        <a href="#" class="btn">Get yours now</a>
     </div>
 
 </section>
@@ -52,7 +59,7 @@
 
 <section class="about" id="about">
 
-    <h1 class="heading"> <span>about</span> us </h1>
+    <h1 class="heading"> <span>About</span> us </h1>
 
     <div class="row">
         <div class="image">
@@ -64,7 +71,7 @@
             <h3>what makes our clothing store special?</h3>
             <p>We bring to life the freshest clothing for both women and men.</p>
             <p>We keep alive the passion for beauty.</p>
-            <a href="#" class="btn">learn more</a>
+            <a href="#" class="btn">Learn more</a>
         </div>
 
     </div>
@@ -74,7 +81,7 @@
 
 <section class="products" id="products">
 
-    <h1 class="heading"> our <span>products</span> </h1>
+    <h1 class="heading"> Our <span>products</span> </h1>
    
  <ul>
 	<ui:repeat var="product" value="#{productsCatalog.products}">
@@ -85,7 +92,7 @@
                             <p>#{product.description}</p>
                             <h:form> <h:commandButton action="#{costumerProduct.addToCart(product.productId)}"
                                                       value="Add to cart"></h:commandButton></h:form>
-                               <h:form> <h:commandButton action="#{costumerProduct.goToCart()}"
+                            <h:form> <h:commandButton action="#{costumerProduct.goToCart()}"
                                                       value="GO to cart"></h:commandButton></h:form>
          
         
@@ -101,14 +108,14 @@
 
 <section class="contact" id="contact">
 
-    <h1 class="heading"> <span>contact</span> us </h1>
+    <h1 class="heading"> <span>Contact</span> us </h1>
 
     <div class="row">
 
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2732.826305165359!2d23.592656715586283!3d46.76832007913802!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47490c26393ae72f%3A0xe35577f14e3ef90b!2sStrada%20Mihail%20Kog%C4%83lniceanu%20nr.%2017-19%2C%20Cluj-Napoca%20400084!5e0!3m2!1sen!2sro!4v1643115669871!5m2!1sen!2sro" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
 
         <form action="">
-            <h3>get in touch</h3>
+            <h3>Get in touch</h3>
             <h3>Follow us:</h3>
                 <div>
                 <a href="https://www.facebook.com/pricop.edy/" class="fa fa-facebook"></a>

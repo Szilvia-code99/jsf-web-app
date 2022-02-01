@@ -67,7 +67,7 @@ public class CostumerDAO {
         try{  
              
              Connection con = con = DataConnect.getConnection();
-             PreparedStatement ps = con.prepareStatement("Select username, password from costumer where username = ? and password = ?");
+             PreparedStatement ps = con.prepareStatement("Select username, password from costumer where username = ? ");
 			ps.setString(1, user);
 			ps.setString(2, password);
 

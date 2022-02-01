@@ -17,7 +17,7 @@
 			<from-outcome>login</from-outcome>
 			<to-view-id>/login.xhtml</to-view-id>
 		</navigation-case>
-                  <from-view-id>/products.xhtml</from-view-id>
+                <from-view-id>/products.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>login</from-outcome>
 			<to-view-id>/login.xhtml</to-view-id>
@@ -26,6 +26,11 @@
                 <navigation-case>
 			<from-outcome>cart</from-outcome>
 			<to-view-id>/cart.xhtml</to-view-id>
+		</navigation-case>
+                <from-view-id>/products.xhtml</from-view-id>
+                <navigation-case>
+			<from-outcome>orders</from-outcome>
+			<to-view-id>/orders.xhtml</to-view-id>
 		</navigation-case>
                 
 	</navigation-rule>
