@@ -66,14 +66,14 @@
 /*product view*/
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  max-width: 200px;
-   max-height: 150px;
+  max-width: 300px;
+   max-height: 600px;
   margin: 50px;
   text-align: center;
   font-family: arial;
    display: inline-block;
     border:.1rem solid rgba(255,255,255,.3);
-    background-color:#d3ad7f;
+    background-color:#FFFFFF;
 }
 
 .price {
@@ -410,6 +410,7 @@ section{
 }
 
 .products .box-container{
+    background-color: #FFFFFF;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
     gap:1.5rem;
@@ -427,12 +428,12 @@ section{
     line-height: 5rem;
     font-size: 2rem;
     border:.1rem solid rgba(255,255,255,.3);
-    color:#fff;
+    color:#FFFFF;
     margin:.3rem;
 }
 
 .products .box-container .box .icons a:hover{
-    background:#d3ad7f;
+    background: #FFFFFF;;
 }
 
 .products .box-container .box .image{
@@ -454,7 +455,7 @@ section{
 
 .products .box-container .box .content .stars i{
     font-size: 1.7rem;
-    color: #d3ad7f;
+    color: #FFFFFF;
 }
 
 .products .box-container .box .content .price{

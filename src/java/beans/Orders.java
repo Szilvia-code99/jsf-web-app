@@ -27,22 +27,22 @@ import javax.servlet.http.HttpServletRequest;
 public class Orders {
 private static final long serialVersionUID = 1094801825228386363L;
     
-      private List<OrderProduct> order_products;
+      private List<OrderItem> order_items;
       private float total;
     
         @PostConstruct
         public void init() {
-          this.order_products = OrderDAO.getProductsFromOrdersById();
+          this.order_items = OrderDAO.getProductsFromOrdersById();
           this.calculateTotal();
         }
      
-        public List<OrderProduct> getOrder_products() {
-                return order_products;
+        public List<OrderItem> getOrder_items() {
+                return order_items;
         }
         
          public void calculateTotal() {
-              for(int i=0;i<order_products.size();i++){
-                 this.total+= order_products.get(i).getPrice() ;
+              for(int i=0;i<order_items.size();i++){
+                 this.total+= order_items.get(i).getPrice() ;
               }
          }
          

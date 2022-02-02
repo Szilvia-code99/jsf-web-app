@@ -5,8 +5,8 @@
  */
 package dao;
 
-import beans.CostumerProduct;
-import beans.OrderProduct;
+import beans.CartItem;
+import beans.OrderItem;
 import beans.SessionUtils;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -22,7 +22,7 @@ import util.DataConnect;
  */
 public class OrderDAO {
     
-    public static boolean placeOrder(List<CostumerProduct> costumer_products) {
+    public static boolean placeOrder(List<CartItem> cart_items) {
 		Connection con = null;
 		PreparedStatement ps = null;
                 int costumerId = SessionUtils.getUserId();
@@ -32,12 +32,12 @@ public class OrderDAO {
                          con = DataConnect.getConnection();
                       
                        
-                        PreparedStatement stmt = con.prepareStatement("insert into shop.order(costumerId,productId,quantity,date) values(?,?,?,?);");  
-                        for(int i=0;i<costumer_products.size();i++){
+                        PreparedStatement stmt = con.prepareStatement("insert into shop.order_item(costumerId,productId,quantity,date) values(?,?,?,?);");  
+                        for(int i=0;i<cart_items.size();i++){
                        
-                         stmt.setInt(1, costumer_products.get(i).getCostumerId());
-                         stmt.setInt(2, costumer_products.get(i).getProductId());
-                         stmt.setInt(3, costumer_products.get(i).getQuantity());
+                         stmt.setInt(1, cart_items.get(i).getCostumerId());
+                         stmt.setInt(2, cart_items.get(i).getProductId());
+                         stmt.setInt(3, cart_items.get(i).getQuantity());
                          java.sql.Timestamp date = new java.sql.Timestamp(new java.util.Date().getTime());
                          stmt.setTimestamp(4, date);
                      
@@ -49,7 +49,7 @@ public class OrderDAO {
 			
                      }
                 catch (Exception exx) {
-			System.out.println(exx.getMessage() + "Costumer_product error -->");
+			System.out.println(exx.getMessage() + "Order error -->");
                 }
                 
                           if(result == 1){  
@@ -60,20 +60,20 @@ public class OrderDAO {
      public static ArrayList getProductsFromOrdersById() {
 		Connection con = null;
 		PreparedStatement ps = null;
-                ArrayList<OrderProduct> products = new ArrayList<OrderProduct>();
+                ArrayList<OrderItem> products = new ArrayList<OrderItem>();
                 int costumerId = SessionUtils.getUserId();
                
 		try {
                         con = DataConnect.getConnection();
-                        ps = con.prepareStatement("Select orderId, productId, quantity,date from shop.order where costumerId = ?");
+                        ps = con.prepareStatement("Select order_itemId, productId, quantity,date from shop.order_item where costumerId = ?");
 			ps.setInt(1, costumerId);
 
 			ResultSet rs = ps.executeQuery();
 			
                         while (rs.next()) {
-                        OrderProduct costumer_product = new OrderProduct(rs.getInt("orderId"),costumerId,rs.getInt("productId"),rs.getInt("quantity"),rs.getTimestamp("date"));
+                        OrderItem order_product = new OrderItem(rs.getInt("order_itemId"),costumerId,rs.getInt("productId"),rs.getInt("quantity"),rs.getTimestamp("date"));
                         
-                        products.add(costumer_product);
+                        products.add(order_product);
 
                     }
 		} catch (SQLException ex) {

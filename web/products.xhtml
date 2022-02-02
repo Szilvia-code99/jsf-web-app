@@ -26,10 +26,10 @@
     <div class="icons">
         
             <h:form>
-            <h:commandButton value="Cart" action="#{costumerProduct.goToCart()}" type="submit" />
+            <h:commandButton value="Cart" action="#{cartItem.goToCart()}" type="submit" />
             </h:form>
             <h:form>
-            <h:commandButton value="Orders" action="#{costumerProduct.goToOrders()}" type="submit" />
+            <h:commandButton value="Orders" action="#{cartItem.goToOrders()}" type="submit" />
             </h:form>
              <h:form>
             <h:commandButton value="Log out" action="#{costumer.logout}" type="submit" />
@@ -90,9 +90,9 @@
                             <h1>#{product.name}</h1>
                             <p class="price">$#{product.price}</p>
                             <p>#{product.description}</p>
-                            <h:form> <h:commandButton action="#{costumerProduct.addToCart(product.productId)}"
+                            <h:form> <h:commandButton action="#{cartItem.addToCart(product.productId)}"
                                                       value="Add to cart"></h:commandButton></h:form>
-                            <h:form> <h:commandButton action="#{costumerProduct.goToCart()}"
+                            <h:form> <h:commandButton action="#{cartItem.goToCart()}"
                                                       value="GO to cart"></h:commandButton></h:form>
          
         

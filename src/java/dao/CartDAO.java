@@ -2,7 +2,7 @@
 package dao;
 
 import beans.Costumer;
-import beans.CostumerProduct;
+import beans.CartItem;
 import beans.Product;
 import beans.SessionUtils;
 import static com.oracle.util.Checksums.update;
@@ -27,19 +27,19 @@ public class CartDAO {
                 int result = 0;  
 		try {
                     con = DataConnect.getConnection();
-                     ps = con.prepareStatement("Select costumer_productId, quantity from costumer_product where costumerId = ? and productId=?");
+                     ps = con.prepareStatement("Select cart_itemId, quantity from cart_item where costumerId = ? and productId=?");
 		     ps.setInt(1, costumerId);
                      ps.setInt(2, productId);
                      
                      ResultSet rs = ps.executeQuery();
                      
                      if (rs.next()) {
-                        ps = con.prepareStatement("update costumer_product set quantity = ? where costumer_productId = ? ");
+                        ps = con.prepareStatement("update cart_item set quantity = ? where cart_itemId = ? ");
 			ps.setInt(1, rs.getInt("quantity")+1);
-                        ps.setInt(2, rs.getInt("costumer_productId"));
+                        ps.setInt(2, rs.getInt("cart_itemId"));
                         ps.executeUpdate();
 		     }else{
-                     PreparedStatement stmt = con.prepareStatement("insert into costumer_product(costumerId,productId,quantity) values(?,?,?);");  
+                     PreparedStatement stmt = con.prepareStatement("insert into cart_item(costumerId,productId,quantity) values(?,?,?);");  
                      stmt.setInt(1, costumerId );  
                      stmt.setInt(2, productId);  
                      stmt.setInt(3, 1);  
@@ -56,7 +56,7 @@ public class CartDAO {
     }  
         
        
-        public static boolean emptyCart(List<CostumerProduct> costumer_products) {
+        public static boolean emptyCart(List<CartItem> cart_items) {
 		Connection con = null;
 		PreparedStatement ps = null;
                 int costumerId = SessionUtils.getUserId();
@@ -64,10 +64,10 @@ public class CartDAO {
                 int result = 0;  
 		try {
                        con = DataConnect.getConnection();
-                       ps = con.prepareStatement("delete from costumer_product where costumer_productId = ? ");
-                         for(int i=0;i<costumer_products.size();i++){
+                       ps = con.prepareStatement("delete from cart_item where cart_itemId = ? ");
+                         for(int i=0;i<cart_items.size();i++){
                             
-                              ps.setInt(1, costumer_products.get(i).getCostumer_productId());
+                              ps.setInt(1, cart_items.get(i).getCart_itemId());
                               result= ps.executeUpdate();
                      }
                                
@@ -88,7 +88,7 @@ public class CartDAO {
                 int result = 0;  
 		try {
                     con = DataConnect.getConnection();
-                     ps = con.prepareStatement("Select costumer_productId, quantity from costumer_product where costumerId = ? and productId=?");
+                     ps = con.prepareStatement("Select cart_itemId, quantity from cart_item where costumerId = ? and productId=?");
 		     ps.setInt(1, costumerId);
                      ps.setInt(2, productId);
                      
@@ -96,14 +96,14 @@ public class CartDAO {
                      
                      if (rs.next()) {
                          if (rs.getInt("quantity")==1){
-                               ps = con.prepareStatement("delete from costumer_product where costumer_productId = ? ");
-                               ps.setInt(1, rs.getInt("costumer_productId"));
+                               ps = con.prepareStatement("delete from cart_item where cart_itemId = ? ");
+                               ps.setInt(1, rs.getInt("cart_itemId"));
                                ps.executeUpdate();
                                
                          } else{
-                                    ps = con.prepareStatement("update costumer_product set quantity = ? where costumer_productId = ? ");
+                                    ps = con.prepareStatement("update cart_item set quantity = ? where cart_itemId = ? ");
                                     ps.setInt(1, rs.getInt("quantity")-1);
-                                    ps.setInt(2, rs.getInt("costumer_productId"));
+                                    ps.setInt(2, rs.getInt("cart_itemId"));
                                     ps.executeUpdate();
                          }
 		     }
@@ -116,24 +116,24 @@ public class CartDAO {
         public static ArrayList getProductsFromCartById() {
 		Connection con = null;
 		PreparedStatement ps = null;
-                ArrayList<CostumerProduct> products = new ArrayList<CostumerProduct>();
+                ArrayList<CartItem> products = new ArrayList<CartItem>();
                 int costumerId = SessionUtils.getUserId();
                
 		try {
                         con = DataConnect.getConnection();
-                        ps = con.prepareStatement("Select costumer_productId, productId, quantity from costumer_product where costumerId = ?");
+                        ps = con.prepareStatement("Select cart_itemId, productId, quantity from cart_item where costumerId = ?");
 			ps.setInt(1, costumerId);
 
 			ResultSet rs = ps.executeQuery();
 			
                         while (rs.next()) {
-                        CostumerProduct costumer_product = new CostumerProduct(rs.getInt("costumer_productId"),costumerId,rs.getInt("productId"),rs.getInt("quantity"));
+                        CartItem cart_item = new CartItem(rs.getInt("cart_itemId"),costumerId,rs.getInt("productId"),rs.getInt("quantity"));
                         
-                        products.add(costumer_product);
+                        products.add(cart_item);
 
                     }
 		} catch (SQLException ex) {
-			System.out.println("Costumer_product error -->" + ex.getMessage());
+			System.out.println("cart_item error -->" + ex.getMessage());
                 }finally {
 			DataConnect.close(con);
 		}

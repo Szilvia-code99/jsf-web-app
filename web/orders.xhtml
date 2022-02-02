@@ -32,18 +32,15 @@ and open the template in the editor.
     </nav>
 
     <div class="icons">
-        <div class="dropdown">
-        <div  class="fas fa-user-circle" id="search-btn"></div>
-        <div class="dropdown-content">
-            <p>My orders</p>
        
-        </div>
-        </div>
-           <h:form>
-            <h:commandButton value="Cart" action="#{costumerProduct.goToCart()}" type="submit" />
+          <h:form>
+            <h:commandButton value="Cart" action="#{cartItem.goToCart()}" type="submit" />
             </h:form>
             <h:form>
-            <h:commandButton value="Orders" action="#{costumerProduct.goToOrders()}" type="submit" />
+            <h:commandButton value="Orders" action="#{cartItem.goToOrders()}" type="submit" />
+            </h:form>
+             <h:form>
+            <h:commandButton value="Log out" action="#{costumer.logout}" type="submit" />
             </h:form>
     </div>
 </header>
@@ -60,16 +57,16 @@ and open the template in the editor.
                                 <th class="cart-item">Date</th>
                                 <th class="cart-item">Sub Total</th>
 			</tr>
-			<ui:repeat var="orderProduct" value="#{orders.order_products}">
+			<ui:repeat var="orderItem" value="#{orders.order_items}">
 				<tr class="cart-items-container">
 					
 					
-                                        <td class="cart-item">#{orderProduct.getProductById().name}</td>
-                                        <td class="cart-item">#{orderProduct.costumerId}</td>
-                                        <td class="cart-item" >#{orderProduct.getProductById().price}</td>
-                                        <td class="cart-item">#{orderProduct.quantity}</td>
-                                        <td class="cart-item">#{orderProduct.date}</td>
-                                         <th class="cart-item">#{orderProduct.price}</th>
+                                        <td class="cart-item">#{orderItem.getProductById().name}</td>
+                                        <td class="cart-item">#{orderItem.costumerId}</td>
+                                        <td class="cart-item" >#{orderItem.getProductById().price}</td>
+                                        <td class="cart-item">#{orderItem.quantity}</td>
+                                        <td class="cart-item">#{orderItem.date}</td>
+                                         <th class="cart-item">#{orderItem.price}</th>
 				</tr>
 			</ui:repeat>
 			<tr class="cart-items-container">
