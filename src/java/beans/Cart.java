@@ -6,6 +6,7 @@
 package beans;
 
 import dao.CartDAO;
+import dao.OrderDAO;
 import dao.ProductDAO;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -54,4 +55,12 @@ private static final long serialVersionUID = 1094801825228386363L;
               ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
               ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
          }
+         
+          public void placeOrder() throws IOException{
+             if (OrderDAO.placeOrder(cart_items)){
+                 CartDAO.emptyCart(cart_items);
+             };
+            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+             ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
+        }
 }

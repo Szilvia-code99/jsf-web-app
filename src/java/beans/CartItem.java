@@ -98,13 +98,7 @@ public class CartItem {
              ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
         }
         
-         public void placeOrder(List<CartItem> cart_items) throws IOException{
-             if (OrderDAO.placeOrder(cart_items)){
-                 CartDAO.emptyCart(cart_items);
-             };
-            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-             ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
-        }
+        
         
         public Product getProductById(){
             return ProductDAO.getProductById(productId);

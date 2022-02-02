@@ -73,10 +73,10 @@ public class CartDAO {
                                
 		 }catch(SQLException ex) {
 			System.out.println("Emptying cart error -->" + ex.getMessage());
-        }
+               }
                   if(result == 1){  
                     return true; }
-                          else return false; 
+                  else return false; 
      }
     
         
@@ -130,7 +130,6 @@ public class CartDAO {
                         CartItem cart_item = new CartItem(rs.getInt("cart_itemId"),costumerId,rs.getInt("productId"),rs.getInt("quantity"));
                         
                         products.add(cart_item);
-
                     }
 		} catch (SQLException ex) {
 			System.out.println("cart_item error -->" + ex.getMessage());
@@ -139,7 +138,4 @@ public class CartDAO {
 		}
 		return products;
 	}
-        
-        
-       
   }
